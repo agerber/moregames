@@ -1,0 +1,26 @@
+****** FINISHED ******
+Add Turret Graphics
+Add Bomb Graphic
+Add Star Background
+Add Worker Crystal Graphic
+Fix Sinistar Location
+Add Piece Sound
+Fix Sinistar Death Procedure
+Limit Collision Detection to One Iteration
+Add Scoring
+Add Explosions
+Finalize Score Amounts
+Add Minimap
+Add Lives in Corner
+Add Sinistar Crystal Graphics
+Add Bomb Collision Reaction
+Sinistar Piece	500 points
+Destroying Sinistar	15,000 points
+Add Sinistar Pieces in Corner
+Add Bombs in Corner
+Finalize all graphics
+Add Bomb Behavior
+Determine Turret Behaviors
+Determine Worker Behaviors
+Add Bomb Sound
+Finalize Sounds
