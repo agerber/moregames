@@ -8,7 +8,8 @@ To use either sinistar or mario as your base, delete the asteroids code in your 
  automatically refactor the packages. Test the Game.java file by running it from your proJava. Right-click the new mario or 
  sinistar dir, select git | add files to git, then commit and push. Continue to modify the source code.
  
-
+Added two older games: pacman and missile command. some of the code is not completely thread-safe. Be careful
+if you borrow code from these projects.
 
 
 
