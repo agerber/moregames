@@ -108,7 +108,7 @@ public class Game implements Runnable, KeyListener {
 		gmpPanel.addKeyListener(this);
 
         //initialize siren background sound
-       // clpSiren = Sound.clipForLoopFactory("siren.wav");
+        clpSiren = Sound.clipForLoopFactory("siren.wav");
         System.out.println();
 
 	}
@@ -192,7 +192,7 @@ public class Game implements Runnable, KeyListener {
             // award a bonus life if player reaches 10,000 points
             if (CommandCenter.getScore() >= 10000 && !bBonusLife)
             {
-               // Sound.playSound("pacman_extrapac.wav");
+                Sound.playSound("pacman_extrapac.wav");
                 nLives += 1;
                 CommandCenter.movLives.clear();
                 CommandCenter.initPacmanLives();
@@ -254,12 +254,12 @@ public class Game implements Runnable, KeyListener {
                         if (dot instanceof Cherry)
                         {
                             CommandCenter.setScore(CommandCenter.getScore() + 100);
-                           // Sound.playSound("pacman_eatfruit.wav");
+                            Sound.playSound("pacman_eatfruit.wav");
                             tupMarkForRemovals.add(new Tuple(CommandCenter.movDots, dot));
                         }
                         else
                         {
-                            //stopLoopingSounds(clpSiren);
+                            stopLoopingSounds(clpSiren);
                             CommandCenter.setScore(CommandCenter.getScore() + 10);
                             tupMarkForRemovals.add(new Tuple(CommandCenter.movDots, dot));
                             nDotCounter = nDotCounter + 1; // this needs to be after so last dot is removed when level is clear
@@ -392,7 +392,7 @@ public class Game implements Runnable, KeyListener {
                     //remove and respawn ghost if zapped
                     if(bZapped)
                     {
-                       // Sound.playSound("floop2_x.wav");
+                        Sound.playSound("floop2_x.wav");
                         if (ghost instanceof Blinky)
                         {
                             tupMarkForRemovals.add(new Tuple(CommandCenter.movFoes, ghost));
@@ -451,7 +451,7 @@ public class Game implements Runnable, KeyListener {
                     {
                         if (isInvincible && !ghost.getRespawn())
                         {
-                           // Sound.playSound("pacman_eatghost.wav");
+                           Sound.playSound("pacman_eatghost.wav");
                             nGhostsEaten += 1;
                             if (ghost instanceof Blinky)
                             {
@@ -508,7 +508,7 @@ public class Game implements Runnable, KeyListener {
                             {
                                 e.printStackTrace();
                             }
-                           // Sound.playSound("pacman_death.wav");
+                            Sound.playSound("pacman_death.wav");
                             nLives -= 1;
                             nTick = 0;
                             bRespawnAfterDeath = true;

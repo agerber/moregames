@@ -120,7 +120,7 @@ public class CommandCenter {
     public static void playIntro()
     {
         Game.setnTick(0);
-       // Sound.playSound("pacman_beginning.wav");
+        Sound.playSound("pacman_beginning.wav");
         bIntroDone = true;
     }
 
@@ -293,7 +293,7 @@ public class CommandCenter {
 
     public static void protonPack()
     {
-        //Sound.playSound("export.wav");
+        Sound.playSound("export.wav");
         if (movPacman.size() != 0)
         {
             pacman = (Pacman)movPacman.get(0);

@@ -2,8 +2,11 @@ package pacman.sounds;
 
 
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -23,8 +26,12 @@ public class Sound {
 
 	          Clip clp = AudioSystem.getClip();
 
-	          AudioInputStream aisStream =
-	        		  AudioSystem.getAudioInputStream(Sound.class.getResourceAsStream(strPath));
+				Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
+				File file = new File(path + "/src/pacman/sounds/" + strPath);
+
+				// AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+				AudioInputStream aisStream =
+						AudioSystem.getAudioInputStream(file);
 
 
 	          clp.open(aisStream);
@@ -48,8 +55,12 @@ public class Sound {
 		// this line caused the original exceptions
 
 		try {
+			Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
+			File file = new File(path + "/src/pacman/sounds/" + strPath);
+
 			AudioInputStream aisStream =
-					  AudioSystem.getAudioInputStream(Sound.class.getResourceAsStream(strPath));
+					AudioSystem.getAudioInputStream(file);
+
 			clp = AudioSystem.getClip();
 		    clp.open( aisStream );
 
