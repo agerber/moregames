@@ -18,7 +18,7 @@ public class Pacman extends Sprite
     // FIELDS
     // ==============================================================
 
-  //  private static Clip clpWakawaka;
+    private static Clip clpWakawaka;
 
     private static int spaceX;
     private static int spaceY;
@@ -90,7 +90,7 @@ public class Pacman extends Sprite
         setRadius(12);
 
         //set up dot eating sound
-       // clpWakawaka = Sound.clipForLoopFactory("waka.wav");
+        clpWakawaka = Sound.clipForLoopFactory("waka.wav");
 
     }
 
@@ -248,13 +248,13 @@ public class Pacman extends Sprite
 
         if (CommandCenter.grid[spaceX-1][spaceY-1].getIsDot())
         {
-          //  clpWakawaka.loop(2);
+            clpWakawaka.loop(2);
             CommandCenter.grid[spaceX-1][spaceY-1].setIsDot(false);
         }
 
         if (CommandCenter.grid[spaceX-1][spaceY-1].getIsEnergizer())
         {
-           // Sound.playSound("pacman_eatfruit.wav");
+            Sound.playSound("pacman_eatfruit.wav");
             CommandCenter.grid[spaceX-1][spaceY-1].setIsEnergizer(false);
         }
 
@@ -477,9 +477,9 @@ public class Pacman extends Sprite
         }
     }
 
-//    public static Clip getWaka()
-//    {
-//        return Pacman.clpWakawaka;
-//    }
+    public static Clip getWaka()
+    {
+        return Pacman.clpWakawaka;
+    }
 
 }
