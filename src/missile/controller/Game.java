@@ -83,8 +83,9 @@ public class Game implements Runnable, KeyListener, MouseListener, MouseMotionLi
 	// ===============================================
 
 	public static final Dimension DIM = new Dimension(990, 810); 	// the dimensions of the game window
-	private GamePanel gmpPanel;										// the GamePanel that the game is played in
-	
+	private GamePanel gmpPanel;// the GamePanel that the game is played in
+
+	private Point crossHairs;
 	private Thread thrAnim;											// animation thread
 	private static int nTick = 0;									// tick used for timing events
 	public final static int ANI_DELAY = 45; 						// milliseconds between screen updates (animation)
@@ -113,6 +114,8 @@ public class Game implements Runnable, KeyListener, MouseListener, MouseMotionLi
 	private final int PAUSE = 80, 			// p key - pause the game
 					  QUIT = 81, 			// q key - quit
 					  START = 83, 			// s key - start the game
+					  SPACE = 32, 			// sSPACE KEY
+
 					  
 					  // keys for debugging purposes (not intended to be used by the player):
 					  
@@ -527,6 +530,13 @@ public class Game implements Runnable, KeyListener, MouseListener, MouseMotionLi
 		
 		if (fal != null) {
 			switch (nKey) {
+
+				//space key hack added by Gerber. Allows you to use space key to fire turret
+				case SPACE:
+					if (CommandCenter.isPlaying()) {
+						CommandCenter.movFriends.add(new CounterMissile(crossHairs));
+					}
+					break;
 				
 				case PAUSE:													// P key - pauses the game
 					CommandCenter.setPaused(!CommandCenter.isPaused());
@@ -632,6 +642,7 @@ public class Game implements Runnable, KeyListener, MouseListener, MouseMotionLi
 	// http://stackoverflow.com/questions/6208833/java-game-development-look-and-shoot-at-mouse-coordinates
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		crossHairs = e.getPoint();
 		if(CommandCenter.getFalcon() != null){
 			Falcon fal = CommandCenter.getFalcon();
 		

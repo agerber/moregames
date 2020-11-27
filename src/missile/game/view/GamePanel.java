@@ -225,33 +225,38 @@ public class GamePanel extends Panel {
 		grpOff.drawString(strDisplay,
 				(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4 + nFontHeight + 200);
 
-		strDisplay = "Press the 'P' key to pause";
+		strDisplay = "Press the 'SPACE' key to fire turret";
 		grpOff.drawString(strDisplay,
 				(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4 + nFontHeight + 240);
 
-		strDisplay = "Press the 'Q' key to quit";
+
+		strDisplay = "Press the 'P' key to pause";
 		grpOff.drawString(strDisplay,
 				(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4 + nFontHeight + 280);
+
+		strDisplay = "Press the 'Q' key to quit";
+		grpOff.drawString(strDisplay,
+				(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4 + nFontHeight + 320);
 		
 		grpOff.setColor(Color.blue);
 		strDisplay = "'T' Powerup = Missile turrets fire from your cities";
 		grpOff.drawString(strDisplay,
-				(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4 + nFontHeight + 320);
+				(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4 + nFontHeight + 360);
 
 		grpOff.setColor(Color.green);
 		strDisplay = "'S' Powerup = Your missiles get a spread effect";
 		grpOff.drawString(strDisplay,
-				(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4 + nFontHeight + 360);
+				(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4 + nFontHeight + 400);
 
 		grpOff.setColor(Color.orange);
 		strDisplay = "'F' Powerup = Move the mouse to fire continuously";
 		grpOff.drawString(strDisplay,
-				(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4 + nFontHeight + 400);
+				(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4 + nFontHeight + 440);
 		
 		grpOff.setColor(Color.red);
 		strDisplay = "'N' Powerup = Launch a super nuke";
 		grpOff.drawString(strDisplay,
-				(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4 + nFontHeight + 440);
+				(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4 + nFontHeight + 480);
 	}
 	
 	
