@@ -2,7 +2,11 @@ package joust.sounds;
 
 import joust.mvc.model.CommandCenter;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -15,14 +19,19 @@ public class Sound {
     //for individual wav sounds (not looped)
     //http://stackoverflow.com/questions/26305/how-can-i-play-sound-in-java
     public static synchronized void playSound(final String strPath) {
+
         new Thread(new Runnable() {
             public void run() {
                 try {
                     if (!CommandCenter.getInstance().isTransition() || CommandCenter.getInstance().getLevel() == 1) {
                         Clip clp = AudioSystem.getClip();
 
+                        Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
+                        File file = new File(path + "/src/joust/sounds/" + strPath);
+
+                        // AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
                         AudioInputStream aisStream =
-                                AudioSystem.getAudioInputStream(Sound.class.getResourceAsStream(strPath));
+                                AudioSystem.getAudioInputStream(file);
 
 
                         clp.open(aisStream);
@@ -42,11 +51,13 @@ public class Sound {
 
         Clip clp = null;
 
-        // this line caused the original exceptions
-
         try {
+
+            Path path = FileSystems.getDefault().getPath("").toAbsolutePath();
+            File file = new File(path + "/src/joust/sounds/" + strPath);
+
                 AudioInputStream aisStream =
-                        AudioSystem.getAudioInputStream(Sound.class.getResourceAsStream(strPath));
+                        AudioSystem.getAudioInputStream(file);
                 clp = AudioSystem.getClip();
                 clp.open( aisStream );
 
