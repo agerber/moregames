@@ -11,6 +11,13 @@ To use sinistar, joust, or mario as your base, delete the asteroids code in your
 Added two older games: pacman and missile command. Some of the code in these projects is not completely thread-safe. Be
 careful if you borrow code from these projects.
 
+HALL OF FAME:
+Mike Vasiliou - Sinistar
+Taylor Piske - Joust
+John Moison - Mario Brothers
+Robert Timpone - Missile Command
+Patrick Niels - PacMan
+
 
 
 
