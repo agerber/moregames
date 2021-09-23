@@ -1,13 +1,11 @@
-package pacman.game.model;
+package edu.uchicago.gerber.pacman.game.model;
 
 import pacman.controller.Game;
-import pacman.sounds.Sound;
+import edu.uchicago.gerber.pacman.controller.Sound;
 
 import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by pmnehls on 11/19/14.

@@ -1,6 +1,4 @@
-package pacman.game.model;
-
-import pacman.sounds.Sound;
+package edu.uchicago.gerber.pacman.game.model;
 
 import java.awt.*;
 import java.util.ArrayList;

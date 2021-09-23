@@ -26,13 +26,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.sound.sampled.Clip;
 
-import java.util.concurrent.CopyOnWriteArrayList;
-
-import javax.sound.sampled.Clip;
-
-import pacman.game.model.*;
-import pacman.game.view.*;
-import pacman.sounds.Sound;
+import edu.uchicago.gerber.pacman.controller.Sound;
+import edu.uchicago.gerber.pacman.game.model.*;
+import edu.uchicago.gerber.pacman.game.view.GamePanel;
 
 // ===============================================
 // == This Game class is the CONTROLLER

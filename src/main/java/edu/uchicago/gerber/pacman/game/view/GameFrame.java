@@ -1,4 +1,4 @@
-package pacman.game.view;
+package edu.uchicago.gerber.pacman.game.view;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import javax.swing.*;

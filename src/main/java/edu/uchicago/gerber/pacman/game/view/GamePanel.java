@@ -1,19 +1,15 @@
-package pacman.game.view;
+package edu.uchicago.gerber.pacman.game.view;
 
 import java.awt.*;
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import javax.swing.JFrame;
 
-
+import edu.uchicago.gerber.pacman.game.model.CommandCenter;
+import edu.uchicago.gerber.pacman.game.model.Movable;
+import edu.uchicago.gerber.pacman.game.model.TargetSpace;
 import pacman.controller.Game;
-import pacman.game.model.CommandCenter;
-import pacman.game.model.Movable;
-import pacman.game.model.TargetSpace;
-import pacman.sounds.Sound;
 
 
 public class GamePanel extends Panel {

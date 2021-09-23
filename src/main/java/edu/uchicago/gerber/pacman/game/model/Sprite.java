@@ -1,4 +1,4 @@
-package pacman.game.model;
+package edu.uchicago.gerber.pacman.game.model;
 
 import java.awt.Color;
 import java.awt.Dimension;
