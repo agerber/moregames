@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import missile.sounds.Sound;
+import edu.uchicago.gerber.missile.controller.Sound;
 
 /**
  *  TurretMissiles are the small missiles fired from Cities when the Turrets powerup is activated.  Much like the enemy msisile,

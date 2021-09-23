@@ -6,7 +6,7 @@ import java.awt.Point;
 import java.util.Random;
 
 import missile.controller.Game;
-import missile.sounds.Sound;
+import edu.uchicago.gerber.missile.controller.Sound;
 
 /**
  *  SuperNukeExplosions are created when the super nuke object expires (i.e. this is debris created by an exploding super nuke).  

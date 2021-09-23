@@ -1,7 +1,7 @@
 package missile.game.model;
 
 import java.util.concurrent.CopyOnWriteArrayList;
-import missile.sounds.Sound;
+import edu.uchicago.gerber.missile.controller.Sound;
 
 /**
  *  This is a utility class with static methods and no constructor.  It helps maintain the state of the game.  The CommandCenter 

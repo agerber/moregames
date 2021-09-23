@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.Random;
 
-import missile.sounds.Sound;
+import edu.uchicago.gerber.missile.controller.Sound;
 
 /**
  *  ExplodingMissile is a special effect that appears when an enemy missile is destroyed (i.e. this is debris created by an enemy

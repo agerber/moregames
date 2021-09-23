@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.Random;
 
-import missile.sounds.Sound;
+import edu.uchicago.gerber.missile.controller.Sound;
 
 /**
  *  GiantExplosion is a visual effect that is spawned when a bomb or bomber plane are destroyed (i.e. this is debris created by an

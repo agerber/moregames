@@ -7,7 +7,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 import missile.controller.Game;
-import missile.sounds.Sound;
+import edu.uchicago.gerber.missile.controller.Sound;
 
 /**
  *  The powerup class controls several settings for the various powerups that appear in the game.  A player picks up a powerup

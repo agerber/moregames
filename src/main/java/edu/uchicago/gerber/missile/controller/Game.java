@@ -3,11 +3,10 @@ package missile.controller;
 import java.util.concurrent.CopyOnWriteArrayList;
 import missile.game.model.*;
 import missile.game.view.*;
-import missile.sounds.Sound;
+import edu.uchicago.gerber.missile.controller.Sound;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 // ===================================================
 // == This Game class is the CONTROLLER

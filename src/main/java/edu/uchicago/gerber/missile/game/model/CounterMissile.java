@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.Random;
 
-import missile.sounds.Sound;
+import edu.uchicago.gerber.missile.controller.Sound;
 
 /**
  *  A CounterMissile is the primary weapon the player uses to fire at enemies and pickup powerups.  The counter missile is not so 

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import missile.controller.Game;
-import missile.sounds.Sound;
+import edu.uchicago.gerber.missile.controller.Sound;
 
 /**
  *  A BomberPlane is an enemy object that appears that the beginning of a new level.  It moves left-to-right or right-to-left 
