@@ -6,6 +6,7 @@ import edu.uchicago.gerber.joust.mvc.model.CommandCenter;
 import edu.uchicago.gerber.joust.mvc.model.Movable;
 import edu.uchicago.gerber.joust.mvc.model.Sprite;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -27,19 +28,16 @@ public class GamePanel extends Panel {
     private GameFrame gmf;
 
     private Font blockyFont;
-    //public static String fontDir = System.getProperty("user.dir") + File.separator + "src"
-     //       + File.separator + "_08final" + File.separator + "fonts" + File.separator;
+    private Image titleScreen;
 
-    private Image titleScreen = new ImageIcon(Sprite.getImgDir() + "balloonFightTitle.gif").getImage();
-    private Image bonusBackground = new ImageIcon(Sprite.getImgDir() + "bonusBackground.png").getImage();
-    private Image battleBackground = new ImageIcon(Sprite.getImgDir() + "battleBackground.png").getImage();
-    private Image battleForeground = new ImageIcon(Sprite.getImgDir() + "battleForeground.png").getImage();
+    private Image bonusBackground;
 
-    private Image[] bKidStatL2 = { new ImageIcon(Sprite.getImgDir() + "bKidStatL2_0.png").getImage(),
-                                    new ImageIcon(Sprite.getImgDir() + "bKidStatL2_1.png").getImage(),
-                                    new ImageIcon(Sprite.getImgDir() + "bKidStatL2_2.png").getImage() };
-    private Image bKidSitL2 = new ImageIcon(Sprite.getImgDir() + "bKidSitL2.png").getImage();
-    private Image lifeBalloon = new ImageIcon(Sprite.getImgDir() + "lifeBalloon.png").getImage();
+    private Image battleBackground ;
+    private Image battleForeground ;
+
+    private Image bKidSitL2 ;
+
+    private Image lifeBalloon ;
 
     // for movement on title screen (not implemented)
     public final int ORGANIC_FRAMERATE = 20;        // framerate for organic movement animation
@@ -50,7 +48,29 @@ public class GamePanel extends Panel {
     // CONSTRUCTOR
     // ==============================================================
 
-    public GamePanel(Dimension dim){
+    public GamePanel(Dimension dim)  {
+
+
+        try {
+            titleScreen = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/joust/images/balloonFightTitle.gif"))).getImage();
+
+            bonusBackground =
+                    new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/joust/images/bonusBackground.png"))).getImage();
+            battleBackground =
+                    new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/joust/images/battleBackground.png"))).getImage();
+            battleForeground =
+                    new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/joust/images/battleForeground.png"))).getImage();
+
+            bKidSitL2 =
+                    new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/joust/images/bKidSitL2.png"))).getImage();
+
+            lifeBalloon =
+                    new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/joust/images/lifeBalloon.png"))).getImage();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         gmf = new GameFrame();
         gmf.getContentPane().add(this);
         gmf.pack();
