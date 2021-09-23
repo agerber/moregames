@@ -1,8 +1,9 @@
-package joust.mvc.controller;
+package edu.uchicago.gerber.joust.mvc.controller;
 
-import joust.mvc.view.GamePanel;
-import joust.mvc.model.*;
-import joust.sounds.Sound;
+
+
+import edu.uchicago.gerber.joust.mvc.model.*;
+import edu.uchicago.gerber.joust.mvc.view.GamePanel;
 
 import javax.sound.sampled.Clip;
 import java.awt.*;

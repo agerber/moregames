@@ -1,6 +1,7 @@
-package joust.mvc.model;
+package edu.uchicago.gerber.joust.mvc.model;
 
-import joust.sounds.Sound;
+
+import edu.uchicago.gerber.joust.mvc.controller.Sound;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package joust.mvc.model;
+package edu.uchicago.gerber.joust.mvc.model;
 
 public class CollisionOp {
 

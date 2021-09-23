@@ -1,6 +1,6 @@
-package joust.mvc.model;
+package edu.uchicago.gerber.joust.mvc.model;
 
-import joust.mvc.controller.Game;
+
 
 import javax.swing.*;
 import java.awt.*;

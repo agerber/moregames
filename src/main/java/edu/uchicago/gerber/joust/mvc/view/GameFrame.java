@@ -1,4 +1,4 @@
-package joust.mvc.view;
+package edu.uchicago.gerber.joust.mvc.view;
 
 import java.awt.*;
 import java.awt.event.*;

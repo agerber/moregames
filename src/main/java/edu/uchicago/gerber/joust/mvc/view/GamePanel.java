@@ -1,14 +1,18 @@
-package joust.mvc.view;
+package edu.uchicago.gerber.joust.mvc.view;
 
-import joust.mvc.controller.Game;
-import joust.mvc.model.CommandCenter;
-import joust.mvc.model.Movable;
-import joust.mvc.model.Sprite;
+
+import edu.uchicago.gerber.joust.mvc.controller.Game;
+import edu.uchicago.gerber.joust.mvc.model.CommandCenter;
+import edu.uchicago.gerber.joust.mvc.model.Movable;
+import edu.uchicago.gerber.joust.mvc.model.Sprite;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class GamePanel extends Panel {
@@ -23,8 +27,8 @@ public class GamePanel extends Panel {
     private GameFrame gmf;
 
     private Font blockyFont;
-    public static String fontDir = System.getProperty("user.dir") + File.separator + "src"
-            + File.separator + "_08final" + File.separator + "fonts" + File.separator;
+    //public static String fontDir = System.getProperty("user.dir") + File.separator + "src"
+     //       + File.separator + "_08final" + File.separator + "fonts" + File.separator;
 
     private Image titleScreen = new ImageIcon(Sprite.getImgDir() + "balloonFightTitle.gif").getImage();
     private Image bonusBackground = new ImageIcon(Sprite.getImgDir() + "bonusBackground.png").getImage();
@@ -59,8 +63,11 @@ public class GamePanel extends Panel {
 
         // got createFont code from http://www.java2s.com/Tutorials/Java/Graphics_How_to/Font/Load_font_from_ttf_file.htm
         // not functioning
-        try { blockyFont = Font.createFont(Font.TRUETYPE_FONT,new File(fontDir + "blocky.ttf")); }
-        catch (IOException | FontFormatException e) { System.out.println("Font file not found!"); }
+
+        InputStream is = getClass().getResourceAsStream("/joust/fonts/blocky.ttf");
+
+        try { blockyFont = Font.createFont(Font.TRUETYPE_FONT, is); }
+        catch (IOException | FontFormatException  e) { System.out.println("Font file not found!"); }
     }
 
     @SuppressWarnings("unchecked")
