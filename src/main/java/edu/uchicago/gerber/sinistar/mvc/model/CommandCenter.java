@@ -122,7 +122,8 @@ public class CommandCenter {
 	private BufferedImage loadGraphic(String imgName) {
 		BufferedImage img;
 		try {
-			img = ImageIO.read(new File("src/sinistar/img/" + imgName));
+
+			img = ImageIO.read(CommandCenter.class.getResourceAsStream("/sinistar/img/" + imgName));
 		}
 		catch (IOException e) {
 			e.printStackTrace();

@@ -21,7 +21,7 @@ public class Sound {
 	          Clip clp = AudioSystem.getClip();
 
 	          AudioInputStream aisStream = 
-	        		  AudioSystem.getAudioInputStream(Sound.class.getResourceAsStream(strPath));
+	        		  AudioSystem.getAudioInputStream(Sound.class.getResourceAsStream("/sinistar/sounds/" +strPath));
      
 	          
 	          clp.open(aisStream);
@@ -44,7 +44,7 @@ public class Sound {
 		
 		try {
 			AudioInputStream aisStream = 
-					  AudioSystem.getAudioInputStream(Sound.class.getResourceAsStream(strPath));
+					  AudioSystem.getAudioInputStream(Sound.class.getResourceAsStream("/sinistar/sounds/" + strPath));
 			clp = AudioSystem.getClip();
 		    clp.open( aisStream );
 				
