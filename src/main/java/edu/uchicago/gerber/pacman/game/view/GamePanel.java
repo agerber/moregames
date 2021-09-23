@@ -3,6 +3,7 @@ package edu.uchicago.gerber.pacman.game.view;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 
@@ -224,7 +225,8 @@ public class GamePanel extends Panel {
     {
         try
         {
-            Font fntTemp = Font.createFont(Font.TRUETYPE_FONT,new File(strFile));
+			InputStream is = getClass().getResourceAsStream("/pacman/fonts/Joystix.TTF");
+            Font fntTemp = Font.createFont(Font.TRUETYPE_FONT,is);
             return fntTemp.deriveFont(18f);
 
         } catch (FontFormatException e)
