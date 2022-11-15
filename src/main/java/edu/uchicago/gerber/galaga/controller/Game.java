@@ -22,26 +22,24 @@ public class Game implements Runnable, KeyListener {
 	// ===============================================
 
 	public static final Dimension DIM = new Dimension(1100, 900); //the dimension of the game.
-	private GamePanel gmpPanel;
+	private final GamePanel gmpPanel;
 	//this is used throughout many classes.
-	public static Random R = new Random();
+	public static final Random R = new Random();
 
 	public final static int ANI_DELAY = 40; // milliseconds between screen
-											// updates (animation)
+	// updates (animation)
 
 	public final static int FRAMES_PER_SECOND = 1000 / ANI_DELAY;
 
-	private Thread animationThread;
+	private final Thread animationThread;
 
-	//todo this is state: move to CommandCenter
-	private boolean muted = true;
-	
 
 	private final int PAUSE = 80, // p key
 			QUIT = 81, // q key
 			LEFT = 37, // rotate left; left arrow
 			RIGHT = 39, // rotate right; right arrow
 			UP = 38, // thrust; up arrow
+			DOWN = 40, // break, down arrow
 			START = 83, // s key
 			FIRE = 32, // space key
 			MUTE = 77; // m-key mute
@@ -51,8 +49,8 @@ public class Game implements Runnable, KeyListener {
 	// SHIELD = 65, 				// A key
 	// SPECIAL = 70; 					// fire special weapon;  F key
 
-	private Clip clpThrust;
-	private Clip clpMusicBackground;
+	private final Clip clpThrust;
+	private final Clip clpMusicBackground;
 
 	//spawn every 30 seconds
 	private static final int SPAWN_NEW_SHIP_FLOATER = FRAMES_PER_SECOND * 30;
@@ -73,7 +71,7 @@ public class Game implements Runnable, KeyListener {
 		//fire up the animation thread
 		animationThread = new Thread(this); // pass the animation thread a runnable object, the Game object
 		animationThread.start();
-	
+
 
 	}
 
@@ -109,8 +107,8 @@ public class Game implements Runnable, KeyListener {
 			// this simply controls delay time between
 			// the frames of the animation
 			try {
-				// The total amount of time is guaranteed to be at least ANI_DELAY long.  If processing (update) 
-				// between frames takes longer than ANI_DELAY, then the difference between lStartTime - 
+				// The total amount of time is guaranteed to be at least ANI_DELAY long.  If processing (update)
+				// between frames takes longer than ANI_DELAY, then the difference between lStartTime -
 				// System.currentTimeMillis() will be negative, then zero will be the sleep time
 				lStartTime += ANI_DELAY;
 
@@ -145,7 +143,7 @@ public class Game implements Runnable, KeyListener {
 					//remove the foe
 					CommandCenter.getInstance().getOpsQueue().enqueue(movFoe, GameOp.Action.REMOVE);
 					Sound.playSound("kapow.wav");
-				 }
+				}
 
 			}//end inner for
 		}//end outer for
@@ -159,13 +157,13 @@ public class Game implements Runnable, KeyListener {
 		for (Movable movFloater : CommandCenter.getInstance().getMovFloaters()) {
 			pntFloaterCenter = movFloater.getCenter();
 			radFloater = movFloater.getRadius();
-	
+
 			//detect collision
 			if (pntFalCenter.distance(pntFloaterCenter) < (radFalcon + radFloater)) {
 
 				CommandCenter.getInstance().getOpsQueue().enqueue(movFloater, GameOp.Action.REMOVE);
 				Sound.playSound("pacman_eatghost.wav");
-	
+
 			}//end if
 		}//end for
 
@@ -248,20 +246,20 @@ public class Game implements Runnable, KeyListener {
 
 	private void spawnSmallerAsteroids(Asteroid originalAsteroid) {
 
-		    int nSize = originalAsteroid.getSize();
-		    if (nSize > 1) return; //return if Small (2) Asteroid
+		int nSize = originalAsteroid.getSize();
+		if (nSize > 1) return; //return if Small (2) Asteroid
 
-		    //for large (0) and medium (1) sized Asteroids only, spawn 2 or 3 smaller asteroids respectively
-		    nSize += 2;
-			while (nSize-- > 0) {
-				CommandCenter.getInstance().getOpsQueue().enqueue(new Asteroid(originalAsteroid), GameOp.Action.ADD);
-			}
+		//for large (0) and medium (1) sized Asteroids only, spawn 2 or 3 smaller asteroids respectively
+		nSize += 2;
+		while (nSize-- > 0) {
+			CommandCenter.getInstance().getOpsQueue().enqueue(new Asteroid(originalAsteroid), GameOp.Action.ADD);
+		}
 
 	}
 
 
 
-	
+
 	private boolean isLevelClear(){
 		//if there are no more Asteroids on the screen
 		boolean asteroidFree = true;
@@ -273,9 +271,9 @@ public class Game implements Runnable, KeyListener {
 		}
 		return asteroidFree;
 	}
-	
+
 	private void checkNewLevel(){
-		
+
 		if (isLevelClear()) {
 			//more asteroids at each level to increase difficulty
 			CommandCenter.getInstance().setLevel(CommandCenter.getInstance().getLevel() + 1);
@@ -285,9 +283,9 @@ public class Game implements Runnable, KeyListener {
 
 		}
 	}
-	
-	
-	
+
+
+
 
 	// Varargs for stopping looping-music-clips
 	private static void stopLoopingSounds(Clip... clpClips) {
@@ -311,34 +309,38 @@ public class Game implements Runnable, KeyListener {
 		if (fal != null) {
 
 			switch (nKey) {
-			case PAUSE:
-				CommandCenter.getInstance().setPaused(!CommandCenter.getInstance().isPaused());
-				if (CommandCenter.getInstance().isPaused())
-					stopLoopingSounds(clpMusicBackground, clpThrust);
+				case PAUSE:
+					CommandCenter.getInstance().setPaused(!CommandCenter.getInstance().isPaused());
+					if (CommandCenter.getInstance().isPaused())
+						stopLoopingSounds(clpMusicBackground, clpThrust);
 
-				break;
-			case QUIT:
-				System.exit(0);
-				break;
-			case UP:
-				fal.thrustOn();
-				if (!CommandCenter.getInstance().isPaused() && !CommandCenter.getInstance().isGameOver())
-					clpThrust.loop(Clip.LOOP_CONTINUOUSLY);
-				break;
-			case LEFT:
-				fal.rotateLeft();
-				break;
-			case RIGHT:
-				fal.rotateRight();
-				break;
+					break;
+				case QUIT:
+					System.exit(0);
+					break;
+				case UP:
+					fal.thrustOn();
+					if (!CommandCenter.getInstance().isPaused() && !CommandCenter.getInstance().isGameOver())
+						clpThrust.loop(Clip.LOOP_CONTINUOUSLY);
+					break;
 
-			// possible future use
-			// case KILL:
-			// case SHIELD:
-			// case NUM_ENTER:
+				case DOWN:
+					fal.breakOn();
+					break;
+				case LEFT:
+					fal.rotateLeft();
+					break;
+				case RIGHT:
+					fal.rotateRight();
+					break;
 
-			default:
-				break;
+				// possible future use
+				// case KILL:
+				// case SHIELD:
+				// case NUM_ENTER:
+
+				default:
+					break;
 			}
 		}
 	}
@@ -348,39 +350,43 @@ public class Game implements Runnable, KeyListener {
 		Falcon fal = CommandCenter.getInstance().getFalcon();
 		int nKey = e.getKeyCode();
 		//show the key-code in the console
-		 System.out.println(nKey);
+		System.out.println(nKey);
 
 		if (fal != null) {
 			switch (nKey) {
-			case FIRE:
-				CommandCenter.getInstance().getOpsQueue().enqueue(new Bullet(fal), GameOp.Action.ADD);
-				Sound.playSound("laser.wav");
-				break;
-				
+				case FIRE:
+					CommandCenter.getInstance().getOpsQueue().enqueue(new Bullet(fal), GameOp.Action.ADD);
+					Sound.playSound("laser.wav");
+					break;
 
-			case LEFT:
-				fal.stopRotating();
-				break;
-			case RIGHT:
-				fal.stopRotating();
-				break;
-			case UP:
-				fal.thrustOff();
-				clpThrust.stop();
-				break;
-				
-			case MUTE:
-				if (!muted){
-					stopLoopingSounds(clpMusicBackground);
-				} 
-				else {
-					clpMusicBackground.loop(Clip.LOOP_CONTINUOUSLY);
-				}
-				muted = !muted;
-				break;
-				
-			default:
-				break;
+
+				case LEFT:
+					fal.stopRotating();
+					break;
+				case RIGHT:
+					fal.stopRotating();
+					break;
+				case UP:
+					fal.thrustOff();
+					clpThrust.stop();
+					break;
+				case DOWN:
+					fal.breakOff();
+					break;
+
+				case MUTE:
+					CommandCenter.getInstance().setMuted(!CommandCenter.getInstance().isMuted());
+
+					if (!CommandCenter.getInstance().isMuted()){
+						stopLoopingSounds(clpMusicBackground);
+					}
+					else {
+						clpMusicBackground.loop(Clip.LOOP_CONTINUOUSLY);
+					}
+					break;
+
+				default:
+					break;
 			}
 		}
 	}

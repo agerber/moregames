@@ -18,6 +18,7 @@ public class CommandCenter {
 	private  int level;
 	private  long score;
 	private  boolean paused;
+	private  boolean muted;
 
 	//the falcon is located in the movFriends list, but since we use this reference a lot, we keep track of it in a
 	//separate reference. Use final to ensure that the falcon ref always points to the single falcon object on heap
@@ -38,7 +39,7 @@ public class CommandCenter {
 	// Constructor made private
 	private CommandCenter() {}
 
-    //this class maintains game state - make this a singleton.
+	//this class maintains game state - make this a singleton.
 	public static CommandCenter getInstance(){
 		if (instance == null){
 			instance = new CommandCenter();
@@ -66,8 +67,8 @@ public class CommandCenter {
 		Sound.playSound("shipspawn.wav");
 		falcon.setFade(Falcon.FADE_INITIAL_VALUE);
 		//put falcon in the middle of the game-space
-		falcon.setCenter(new Point(Game.DIM.width / 2, Game.DIM.height / 2));
-		falcon.setOrientation(Game.R.nextInt(360));
+		falcon.setCenter(new Point(Game.DIM.width / 2,  Game.DIM.height - 100));
+		falcon.setOrientation(270);
 		falcon.setDeltaX(0);
 		falcon.setDeltaY(0);
 	}

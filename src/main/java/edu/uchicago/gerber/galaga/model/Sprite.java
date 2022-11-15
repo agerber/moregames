@@ -48,8 +48,7 @@ public abstract class Sprite implements Movable {
         //default sprite color
         setColor(Color.WHITE);
         //place the sprite at some random location in the frame at instantiation
-        setCenter(new Point(Game.R.nextInt(Game.DIM.width),
-                Game.R.nextInt(Game.DIM.height)));
+        setCenter(new Point(Game.R.nextInt(Game.DIM.width), Game.DIM.height));
 
 
     }
@@ -65,17 +64,20 @@ public abstract class Sprite implements Movable {
 
         //right-bounds reached
         if (center.x > Game.DIM.width) {
-            setCenter(new Point(1, center.y));
-        //left-bounds reached
+            setCenter(new Point(Game.DIM.width -1, center.y));
+            setDeltaX(-getDeltaX());
+            //left-bounds reached
         } else if (center.x < 0) {
-            setCenter(new Point(Game.DIM.width - 1, center.y));
-        //bottom-bounds reached
+            //  setCenter(new Point(Game.DIM.width - 1, center.y));
+            setCenter(new Point(1, center.y));
+            setDeltaX(-getDeltaX());
+            //bottom-bounds reached
         } else if (center.y > Game.DIM.height) {
             setCenter(new Point(center.x, 1));
-        //top-bounds reached
+            //top-bounds reached
         } else if (center.y < 0) {
             setCenter(new Point(center.x, Game.DIM.height - 1));
-        //in-bounds
+            //in-bounds
         } else {
             double newXPos = center.x + getDeltaX();
             double newYPos = center.y + getDeltaY();
@@ -85,6 +87,12 @@ public abstract class Sprite implements Movable {
         //expire (decrement expiry) on short-lived objects only
         //the default value of expiry is zero, so this block will only apply to expiring sprites
         if (getExpiry() > 0) expire();
+
+        //if a sprite spins, adjust its orientation
+        //the default value of spin is zero, therefore non-spinning objects will not call this block.
+        if (getSpin() != 0) {
+            setOrientation(getOrientation() + getSpin());
+        }
 
     }
 
@@ -110,6 +118,11 @@ public abstract class Sprite implements Movable {
         if (randomNumber % 2 == 0)
             randomNumber = -randomNumber;
         return randomNumber;
+    }
+
+    protected int somePosValue(int seed) {
+        return Game.R.nextInt(seed);
+
     }
 
     @Override
@@ -204,8 +217,8 @@ public abstract class Sprite implements Movable {
         // graphics (from top to bottom)
         Function<Point, Point> adjustForLocation =
                 p -> new Point(
-                         getCenter().x + p.x,
-                         getCenter().y - p.y);
+                        getCenter().x + p.x,
+                        getCenter().y - p.y);
 
 
 

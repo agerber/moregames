@@ -10,51 +10,52 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 
 
 
 public class GamePanel extends Panel {
-	
+
 	// ==============================================================
-	// FIELDS 
-	// ============================================================== 
-	 
+	// FIELDS
+	// ==============================================================
+
 	// The following "off" vars are used for the off-screen double-buffered image.
 	private Image imgOff;
 	private Graphics grpOff;
-	
+
 	private GameFrame gmf;
 	private Font fnt = new Font("SansSerif", Font.BOLD, 12);
 	private Font fntBig = new Font("SansSerif", Font.BOLD + Font.ITALIC, 36);
-	private FontMetrics fmt; 
+	private FontMetrics fmt;
 	private int fontWidth;
 	private int fontHeight;
 	private String strDisplay = "";
-	
+
 
 	// ==============================================================
-	// CONSTRUCTOR 
+	// CONSTRUCTOR
 	// ==============================================================
-	
-	public GamePanel(Dimension dim){
-	    gmf = new GameFrame();
+
+	public GamePanel(Dimension dim) {
+		gmf = new GameFrame();
 		gmf.getContentPane().add(this);
 		gmf.pack();
 		initView();
-		
+
 		gmf.setSize(dim);
 		gmf.setTitle("Game Base");
 		gmf.setResizable(false);
 		gmf.setVisible(true);
 		setFocusable(true);
 	}
-	
-	
+
+
 	// ==============================================================
-	// METHODS 
+	// METHODS
 	// ==============================================================
-	
+
 	private void drawScore(Graphics g) {
 		g.setColor(Color.white);
 		g.setFont(fnt);
@@ -64,7 +65,7 @@ public class GamePanel extends Panel {
 			g.drawString("NO SCORE", fontWidth, fontHeight);
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public void update(Graphics g) {
 		//create an image off-screen
@@ -77,23 +78,33 @@ public class GamePanel extends Panel {
 		grpOff.fillRect(0, 0, Game.DIM.width, Game.DIM.height);
 
 		drawScore(grpOff);
-		
+
 		if (CommandCenter.getInstance().isGameOver()) {
-			displayTextOnScreen();
+			displayTextOnScreen(grpOff,
+					"GAME OVER",
+					"use the arrow keys to turn and thrust",
+					"use the space bar to fire",
+					"'S' to Start",
+					"'P' to Pause",
+					"'Q' to Quit",
+					"left pinkie on 'A' for Shield",
+					"'Numeric-Enter' for Hyperspace"
+
+			);
 		} else if (CommandCenter.getInstance().isPaused()) {
 			strDisplay = "Game Paused";
 			grpOff.drawString(strDisplay,
 					(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4);
 		}
-		
+
 		//playing and not paused!
 		else {
 
 			iterateMovables(grpOff,
-				CommandCenter.getInstance().getMovDebris(),
-				CommandCenter.getInstance().getMovFloaters(),
-				CommandCenter.getInstance().getMovFoes(),
-				CommandCenter.getInstance().getMovFriends());
+					CommandCenter.getInstance().getMovDebris(),
+					CommandCenter.getInstance().getMovFloaters(),
+					CommandCenter.getInstance().getMovFoes(),
+					CommandCenter.getInstance().getMovFriends());
 
 
 			drawNumberShipsLeft(grpOff);
@@ -105,13 +116,11 @@ public class GamePanel extends Panel {
 		// of the game panel, and show it for ~40ms. If you attempt to draw sprites directly on the gamePanel, e.g.
 		// without the use of a double-buffered off-screen image, you will see flickering.
 		g.drawImage(imgOff, 0, 0, this);
-	} 
+	}
 
-
-	
 
 	@SafeVarargs
-	private final void iterateMovables(final Graphics g, List<Movable>... arrayOfListMovables){
+	private final void iterateMovables(final Graphics g, List<Movable>... arrayOfListMovables) {
 
 		BiConsumer<Graphics, Movable> moveDraw = (grp, mov) -> {
 			mov.move();
@@ -123,13 +132,13 @@ public class GamePanel extends Panel {
 				.flatMap(Collection::stream) //Stream<Movable>
 				.forEach(m -> moveDraw.accept(g, m));
 
-		
+
 	}
 
 
-	private void drawNumberShipsLeft(Graphics g){
+	private void drawNumberShipsLeft(Graphics g) {
 		int numFalcons = CommandCenter.getInstance().getNumFalcons();
-		while (numFalcons > 0){
+		while (numFalcons > 0) {
 			drawOneShipLeft(g, numFalcons--);
 		}
 	}
@@ -141,72 +150,44 @@ public class GamePanel extends Panel {
 		g.setColor(falcon.getColor());
 
 		g.drawPolygon(
-					Arrays.stream(falcon.getCartesians())
-							.map(pnt -> pnt.x + Game.DIM.width - (20 * offSet))
-							.mapToInt(Integer::intValue)
-							.toArray(),
+				Arrays.stream(falcon.getCartesians())
+						.map(pnt -> pnt.x + Game.DIM.width - (20 * offSet))
+						.mapToInt(Integer::intValue)
+						.toArray(),
 
-					Arrays.stream(falcon.getCartesians())
-							.map(pnt -> pnt.y + Game.DIM.height - 40)
-							.mapToInt(Integer::intValue)
-							.toArray(),
+				Arrays.stream(falcon.getCartesians())
+						.map(pnt -> pnt.y + Game.DIM.height - 40)
+						.mapToInt(Integer::intValue)
+						.toArray(),
 
-					falcon.getCartesians().length);
-
+				falcon.getCartesians().length);
 
 
 	}
-	
+
 	private void initView() {
-		Graphics g = getGraphics();			// get the graphics context for the panel
-		g.setFont(fnt);						// take care of some simple font stuff
+		Graphics g = getGraphics();            // get the graphics context for the panel
+		g.setFont(fnt);                        // take care of some simple font stuff
 		fmt = g.getFontMetrics();
 		fontWidth = fmt.getMaxAdvance();
 		fontHeight = fmt.getHeight();
-		g.setFont(fntBig);					// set font info
+		g.setFont(fntBig);                    // set font info
 	}
-	
+
+
 	// This method draws some text to the middle of the screen before/after a game
-	private void displayTextOnScreen() {
+	private void displayTextOnScreen(final Graphics graphics, String... lines) {
 
-		strDisplay = "GAME OVER";
-		grpOff.drawString(strDisplay,
-				(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4);
+		AtomicInteger spacer = new AtomicInteger(0);
+		Arrays.stream(lines)
+				.forEach(s -> {
+							graphics.drawString(s, (Game.DIM.width - fmt.stringWidth(s)) / 2,
+									Game.DIM.height / 4 + fontHeight + spacer.getAndAdd(40));
+						}
+				);
 
-		strDisplay = "use the arrow keys to turn and thrust";
-		grpOff.drawString(strDisplay,
-				(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4
-						+ fontHeight + 40);
 
-		strDisplay = "use the space bar to fire";
-		grpOff.drawString(strDisplay,
-				(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4
-						+ fontHeight + 80);
-
-		strDisplay = "'S' to Start";
-		grpOff.drawString(strDisplay,
-				(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4
-						+ fontHeight + 120);
-
-		strDisplay = "'P' to Pause";
-		grpOff.drawString(strDisplay,
-				(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4
-						+ fontHeight + 160);
-
-		strDisplay = "'Q' to Quit";
-		grpOff.drawString(strDisplay,
-				(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4
-						+ fontHeight + 200);
-		strDisplay = "left pinkie on 'A' for Shield";
-		grpOff.drawString(strDisplay,
-				(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4
-						+ fontHeight + 240);
-
-		strDisplay = "'Numeric-Enter' for Hyperspace";
-		grpOff.drawString(strDisplay,
-				(Game.DIM.width - fmt.stringWidth(strDisplay)) / 2, Game.DIM.height / 4
-						+ fontHeight + 280);
 	}
-	
+
 
 }
