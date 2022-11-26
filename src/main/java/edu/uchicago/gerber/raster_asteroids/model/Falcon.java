@@ -125,7 +125,8 @@ public class Falcon extends Sprite {
 		renderRaster((Graphics2D) g, getRasterMap().get(imageState.toString()));
 
 		//draw cyan shield, and warn player of impending non-protection
-		if (isProtected() && (spawn > 20 || spawn % 8 != 0)) {
+		//use deMorgan's law
+		if (isProtected() && !(spawn < 20 && spawn % 8 == 0)) {
 			//you can add vector elements to raster graphics
 			g.setColor(Color.CYAN);
 			g.drawOval(getCenter().x - getRadius(), getCenter().y - getRadius(), getRadius() *2, getRadius() *2);
