@@ -126,7 +126,7 @@ public class Falcon extends Sprite {
 
 		//draw cyan shield, and warn player of impending non-protection
 		//use deMorgan's law
-		if (isProtected() && !(spawn < 20 && spawn % 8 == 0)) {
+		if (isProtected() && !(spawn <= 21 && spawn % 7 == 0)) {
 			//you can add vector elements to raster graphics
 			g.setColor(Color.CYAN);
 			g.drawOval(getCenter().x - getRadius(), getCenter().y - getRadius(), getRadius() *2, getRadius() *2);
