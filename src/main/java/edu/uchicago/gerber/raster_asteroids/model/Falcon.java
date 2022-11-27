@@ -16,12 +16,10 @@ public class Falcon extends Sprite {
 	
 	private static final double THRUST = .65;
 	private final static int DEGREE_STEP = 9;
-	//must be multiple of 3
 	public static final int INITIAL_SPAWN_TIME = 68;
 
-	//use for spawning and protection
-	private int spawn = INITIAL_SPAWN_TIME;
-
+	//a counter which counts down from INITIAL_SPAWN_TIME to zero (see move()). Used for determining protection
+	private int spawn;
 
 	private boolean thrusting = false;
 	public enum TurnState {
@@ -49,15 +47,19 @@ public class Falcon extends Sprite {
 		setRadius(32);
 
 
-		//see the resources directory in the root of this project.
+
+		//We use HashMap which has a seek-time of O(1)
+		//See the resources directory in the root of this project for pngs.
 		//Using enums as keys is safer b/c we know the value exists when we get it later;
-		//if we had hard-coded strings here and below, there's a chance we could misspell it below.
-		Map<String, BufferedImage> rasterMap = new HashMap<>();
-		rasterMap.put(ImageState.FALCON.toString(), loadGraphic("/asteroids/imgs/falcon50.png") );
-		rasterMap.put(ImageState.FALCON_THR.toString(), loadGraphic("/asteroids/imgs/falcon50thrust.png") );
-		rasterMap.put(ImageState.FALCON_PRO.toString(), loadGraphic("/asteroids/imgs/falcon50protect.png") );
-		rasterMap.put(ImageState.FALCON_PRO_THR.toString(), loadGraphic("/asteroids/imgs/falcon50protect_thrust.png") );
+		//if we had hard-coded strings here and below, there's a chance we could misspell it below or elsewhere.
+
+    	Map<ImageState, BufferedImage> rasterMap = new HashMap<>();
+		rasterMap.put(ImageState.FALCON, loadGraphic("/asteroids/imgs/fal/falcon50.png") );
+		rasterMap.put(ImageState.FALCON_THR, loadGraphic("/asteroids/imgs/fal/falcon50thrust.png") );
+		rasterMap.put(ImageState.FALCON_PRO, loadGraphic("/asteroids/imgs/fal/falcon50protect.png") );
+		rasterMap.put(ImageState.FALCON_PRO_THR, loadGraphic("/asteroids/imgs/fal/falcon50protect_thrust.png") );
 		setRasterMap(rasterMap);
+
 
 	}
 
@@ -122,10 +124,9 @@ public class Falcon extends Sprite {
 
 		//cast (widen the aperture of) the graphics object to gain access to methods of Graphics2D
 		//and render the image according to the image-state
-		renderRaster((Graphics2D) g, getRasterMap().get(imageState.toString()));
+		renderRaster((Graphics2D) g, getRasterMap().get(imageState));
 
 		//draw cyan shield, and warn player of impending non-protection
-		//use deMorgan's law
 		if (isProtected() && !(spawn <= 21 && spawn % 7 == 0)) {
 			//you can add vector elements to raster graphics
 			g.setColor(Color.CYAN);

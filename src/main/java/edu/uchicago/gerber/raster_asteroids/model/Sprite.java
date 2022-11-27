@@ -18,7 +18,9 @@ import java.util.function.Function;
 //the lombok @Data gives us automatic getters and setters on all members
 
 //A Sprite can be either vector or raster. We do not implement the draw(Graphics g) method, thereby forcing extending
-// classes to implement draw() depending on their graphics mode: vector or raster
+// classes to implement draw() depending on their graphics mode: vector or raster.  See Falcon, and SmallDebris
+// classes for raster implementation of draw(). See NewShipFloater, Bullet, or Asteroid for vector implementations of
+// draw().
 @Data
 public abstract class Sprite implements Movable {
     //the center-point of this sprite
@@ -35,8 +37,6 @@ public abstract class Sprite implements Movable {
     private int orientation;
     //natural mortality (short-lived sprites only)
     private int expiry;
-    //the color of this sprite
-    private Color color;
 
     //some sprites spin, such as floaters and asteroids
     private int spin;
@@ -44,20 +44,20 @@ public abstract class Sprite implements Movable {
 
     //these are Cartesian points used to draw the polygon in vector mode.
     //once set, their values do not change. It's the job of the renderVector() method to adjust for orientation and
-    // location. See NewShipFloater, Bullet, or Asteroid for implementation details.
+    // location.
     private Point[] cartesians;
 
-    //Either you use the cartesian points above (vector), or you can use the bufferedImages here (raster)
-    //see Falcon for raster implementation
-    private Map<String, BufferedImage> rasterMap;
+    //used for vector rendering
+    private Color color;
+
+    //Either you use the cartesian points above (vector), or you can use the BufferedImages here (raster).
+    private Map<?, BufferedImage> rasterMap;
 
 
     //constructor
     public Sprite() {
 
-        //default sprite color
-        setColor(Color.WHITE);
-        //place the sprite at some random location in the frame at instantiation
+        //place the sprite at some random location in the game-space at instantiation
         setCenter(new Point(Game.R.nextInt(Game.DIM.width),
                 Game.R.nextInt(Game.DIM.height)));
 

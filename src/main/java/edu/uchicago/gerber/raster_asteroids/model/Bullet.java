@@ -13,6 +13,7 @@ public class Bullet extends Sprite {
 
 
         setTeam(Team.FRIEND);
+        setColor(Color.ORANGE);
 
         //a bullet expires after 20 frames. set to one more than frame expiration
         setExpiry(21);

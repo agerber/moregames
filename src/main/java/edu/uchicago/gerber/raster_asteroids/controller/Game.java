@@ -192,7 +192,7 @@ public class Game implements Runnable, KeyListener {
 					} else { //GameOp.Operation.REMOVE
 						CommandCenter.getInstance().getMovFoes().remove(mov);
 						if (mov instanceof Asteroid)
-							spawnSmallerAsteroids((Asteroid) mov);
+							spawnSmallerAsteroidsOrDebris((Asteroid) mov);
 					}
 
 					break;
@@ -248,15 +248,20 @@ public class Game implements Runnable, KeyListener {
 		}
 	}
 
-	private void spawnSmallerAsteroids(Asteroid originalAsteroid) {
+	private void spawnSmallerAsteroidsOrDebris(Asteroid originalAsteroid) {
 
 		    int nSize = originalAsteroid.getSize();
-		    if (nSize > 1) return; //return if Small (2) Asteroid
-
-		    //for large (0) and medium (1) sized Asteroids only, spawn 2 or 3 smaller asteroids respectively
-		    nSize += 2;
-			while (nSize-- > 0) {
-				CommandCenter.getInstance().getOpsQueue().enqueue(new Asteroid(originalAsteroid), GameOp.Action.ADD);
+		    //small asteroids
+		    if (nSize > 1) {
+				CommandCenter.getInstance().getOpsQueue().enqueue(new SmallDebris(originalAsteroid), GameOp.Action.ADD);
+			}
+			//med and large
+			else {
+				//for large (0) and medium (1) sized Asteroids only, spawn 2 or 3 smaller asteroids respectively
+				nSize += 2;
+				while (nSize-- > 0) {
+					CommandCenter.getInstance().getOpsQueue().enqueue(new Asteroid(originalAsteroid), GameOp.Action.ADD);
+				}
 			}
 
 	}

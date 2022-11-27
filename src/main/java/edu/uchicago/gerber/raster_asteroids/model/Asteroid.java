@@ -25,6 +25,7 @@ public class Asteroid extends Sprite {
 
 		//Asteroid is FOE
 		setTeam(Team.FOE);
+		setColor(Color.WHITE);
 
 		//the spin will be either plus or minus 0-9
 		setSpin(somePosNegValue(10));
