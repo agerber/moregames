@@ -9,7 +9,7 @@ public class Brick extends Sprite {
 
 	private final int BRICK_IMAGE = 0;
 
-	//make sure to set the size as even numbers. The size of this brick is always square!
+	//The size of this brick is always square!
 	//we use upperLeft because that is the origin when drawing objects in Java
 	public Brick(Point upperLeftCorner, int size) {
 
