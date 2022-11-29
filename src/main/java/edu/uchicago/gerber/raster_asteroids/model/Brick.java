@@ -35,6 +35,11 @@ public class Brick extends Sprite {
 	public void draw(Graphics g) {
 		renderRaster((Graphics2D) g, getRasterMap().get(BRICK_IMAGE));
 
+		//if you uncomment these, you can see how collision works. Feel free to remove these two lines.
+		//g.setColor(Color.LIGHT_GRAY);
+		//g.drawOval(getCenter().x - getRadius(), getCenter().y - getRadius(), getRadius() *2, getRadius() *2);
+
+
 	}
 
 } //end class
