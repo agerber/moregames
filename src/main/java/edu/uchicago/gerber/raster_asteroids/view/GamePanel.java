@@ -1,7 +1,9 @@
 package edu.uchicago.gerber.raster_asteroids.view;
 
-import edu.uchicago.gerber._08final.mvc.controller.Game;
-import edu.uchicago.gerber._08final.mvc.model.*;
+import edu.uchicago.gerber.raster_asteroids.controller.Game;
+import edu.uchicago.gerber.raster_asteroids.model.CommandCenter;
+import edu.uchicago.gerber.raster_asteroids.model.Movable;
+import edu.uchicago.gerber.raster_asteroids.model.PolarPoint;
 
 import java.awt.*;
 import java.util.ArrayList;

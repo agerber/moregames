@@ -1,7 +1,8 @@
 package edu.uchicago.gerber.raster_asteroids.controller;
 
 
-import edu.uchicago.gerber._08final.mvc.model.CommandCenter;
+
+import edu.uchicago.gerber.raster_asteroids.model.CommandCenter;
 
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
@@ -20,7 +21,7 @@ public class Sound {
 				try {
 					Clip clp = AudioSystem.getClip();
 
-					InputStream audioSrc = Sound.class.getResourceAsStream("/sounds/" + strPath);
+					InputStream audioSrc = Sound.class.getResourceAsStream("/asteroids/sounds/" + strPath);
 					InputStream bufferedIn = new BufferedInputStream(audioSrc);
 					AudioInputStream aisStream = AudioSystem.getAudioInputStream(bufferedIn);
 
@@ -41,7 +42,7 @@ public class Sound {
 
 		Clip clp = null;
 		try {
-			InputStream audioSrc = Sound.class.getResourceAsStream("/sounds/" + strPath);
+			InputStream audioSrc = Sound.class.getResourceAsStream("/asteroids/sounds/" + strPath);
 			InputStream bufferedIn = new BufferedInputStream(audioSrc);
 			AudioInputStream aisStream = AudioSystem.getAudioInputStream(bufferedIn);
 			clp = AudioSystem.getClip();

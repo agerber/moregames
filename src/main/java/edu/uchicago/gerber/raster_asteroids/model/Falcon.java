@@ -54,10 +54,10 @@ public class Falcon extends Sprite {
 		//if we had hard-coded strings here and below, there's a chance we could misspell it below or elsewhere.
 
     	Map<ImageState, BufferedImage> rasterMap = new HashMap<>();
-		rasterMap.put(ImageState.FALCON, loadGraphic("/imgs/fal/falcon50.png") );
-		rasterMap.put(ImageState.FALCON_THR, loadGraphic("/imgs/fal/falcon50thrust.png") );
-		rasterMap.put(ImageState.FALCON_PRO, loadGraphic("/imgs/fal/falcon50protect.png") );
-		rasterMap.put(ImageState.FALCON_PRO_THR, loadGraphic("/imgs/fal/falcon50protect_thrust.png") );
+		rasterMap.put(ImageState.FALCON, loadGraphic("/asteroids/imgs/fal/falcon50.png") );
+		rasterMap.put(ImageState.FALCON_THR, loadGraphic("/asteroids/imgs/fal/falcon50thrust.png") );
+		rasterMap.put(ImageState.FALCON_PRO, loadGraphic("/asteroids/imgs/fal/falcon50protect.png") );
+		rasterMap.put(ImageState.FALCON_PRO_THR, loadGraphic("/asteroids/imgs/fal/falcon50protect_thrust.png") );
 		setRasterMap(rasterMap);
 
 

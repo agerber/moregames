@@ -24,7 +24,7 @@ public class Brick extends Sprite {
 
     	Map<Integer, BufferedImage> rasterMap = new HashMap<>();
 		//brick from Mario Bros
-		rasterMap.put(BRICK_IMAGE, loadGraphic("/imgs/brick/Brick_Block100.png") );
+		rasterMap.put(BRICK_IMAGE, loadGraphic("/asteroids/imgs/brick/Brick_Block100.png") );
 
 		setRasterMap(rasterMap);
 

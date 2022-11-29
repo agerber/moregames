@@ -16,15 +16,15 @@ public class WhiteCloudDebris extends Sprite{
 
         Map<Integer, BufferedImage> rasterMap = new HashMap<>();
         //see readme.txt file in the resources/imgs/exp directory for how I created these assets
-        rasterMap.put(0, loadGraphic("/imgs/exp/row-1-column-1.png") );
-        rasterMap.put(1, loadGraphic("/imgs/exp/row-1-column-2.png") );
-        rasterMap.put(2, loadGraphic("/imgs/exp/row-1-column-3.png") );
-        rasterMap.put(3, loadGraphic("/imgs/exp/row-2-column-1.png") );
-        rasterMap.put(4, loadGraphic("/imgs/exp/row-2-column-2.png") );
-        rasterMap.put(5, loadGraphic("/imgs/exp/row-2-column-3.png") );
-        rasterMap.put(6, loadGraphic("/imgs/exp/row-3-column-1.png") );
-        rasterMap.put(7, loadGraphic("/imgs/exp/row-3-column-2.png") );
-        rasterMap.put(8, loadGraphic("/imgs/exp/row-3-column-3.png") );
+        rasterMap.put(0, loadGraphic("/asteroids/imgs/exp/row-1-column-1.png") );
+        rasterMap.put(1, loadGraphic("/asteroids/imgs/exp/row-1-column-2.png") );
+        rasterMap.put(2, loadGraphic("/asteroids/imgs/exp/row-1-column-3.png") );
+        rasterMap.put(3, loadGraphic("/asteroids/imgs/exp/row-2-column-1.png") );
+        rasterMap.put(4, loadGraphic("/asteroids/imgs/exp/row-2-column-2.png") );
+        rasterMap.put(5, loadGraphic("/asteroids/imgs/exp/row-2-column-3.png") );
+        rasterMap.put(6, loadGraphic("/asteroids/imgs/exp/row-3-column-1.png") );
+        rasterMap.put(7, loadGraphic("/asteroids/imgs/exp/row-3-column-2.png") );
+        rasterMap.put(8, loadGraphic("/asteroids/imgs/exp/row-3-column-3.png") );
 
         setRasterMap(rasterMap);
 
