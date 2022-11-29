@@ -16,6 +16,7 @@ public class Sound {
 	//http://stackoverflow.com/questions/26305/how-can-i-play-sound-in-java
 	public static void playSound(final String strPath) {
 
+
 		CommandCenter.getInstance().getSoundExecutor().execute(new Runnable() {
 			public void run() {
 				try {

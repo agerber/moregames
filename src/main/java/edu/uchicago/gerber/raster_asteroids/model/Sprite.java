@@ -1,6 +1,5 @@
 package edu.uchicago.gerber.raster_asteroids.model;
 
-
 import edu.uchicago.gerber.raster_asteroids.controller.Game;
 import lombok.Data;
 
