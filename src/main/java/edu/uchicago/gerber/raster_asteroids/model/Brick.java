@@ -32,11 +32,6 @@ public class Brick extends Sprite {
 	}
 
 	@Override
-	public boolean isProtected() {
-		return true;
-	}
-
-	@Override
 	public void draw(Graphics g) {
 		renderRaster((Graphics2D) g, getRasterMap().get(BRICK_IMAGE));
 
