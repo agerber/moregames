@@ -2,14 +2,15 @@ package edu.uchicago.gerber.raster_asteroids.model;
 
 
 
-
-import edu.uchicago.gerber.raster_asteroids.controller.Game;
-import edu.uchicago.gerber.raster_asteroids.controller.Sound;
+import edu.uchicago.gerber._08final.mvc.controller.Game;
+import edu.uchicago.gerber._08final.mvc.controller.Sound;
 import lombok.Data;
 
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,8 @@ public class CommandCenter {
 	private  long score;
 	private  boolean paused;
 	private  boolean muted;
+
+	//this value is used count the number of frames (full animation cycles) in the game
 	private long frame;
 
 	//the falcon is located in the movFriends list, but since we use this reference a lot, we keep track of it in a
@@ -36,6 +39,9 @@ public class CommandCenter {
 	private final List<Movable> movFloaters = new LinkedList<>();
 
 	private final GameOpsQueue opsQueue = new GameOpsQueue();
+
+	//for sound playing. Limit the number of threads to 5 at a time.
+	private final ThreadPoolExecutor soundExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(5);
 
 	//singleton
 	private static CommandCenter instance = null;
@@ -62,6 +68,23 @@ public class CommandCenter {
 		initFalconAndDecrementFalconNum();
 		//add the falcon to the movFriends list
 		opsQueue.enqueue(falcon, GameOp.Action.ADD);
+
+		//doesn't add much functionality to the game, but shows how to add walls or rectangular elements one
+		//brick at a time
+		createWall();
+
+	}
+
+	private void createWall(){
+
+		final int BRICK_SIZE = Game.DIM.width / 30, ROWS = 20, COLS = 2,  X_OFFSET = BRICK_SIZE * 5, Y_OFFSET =
+				Game.DIM.height - 200;
+
+		for (int nRow = 0; nRow < ROWS; nRow++)
+			for (int nCol = 0; nCol < COLS; nCol++)
+				opsQueue.enqueue(new Brick(new Point(nRow * BRICK_SIZE + X_OFFSET, nCol * BRICK_SIZE+ Y_OFFSET), BRICK_SIZE),
+						GameOp.Action.ADD);
+
 
 	}
 

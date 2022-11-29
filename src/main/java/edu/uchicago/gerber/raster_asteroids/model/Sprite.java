@@ -1,7 +1,6 @@
 package edu.uchicago.gerber.raster_asteroids.model;
 
-
-import edu.uchicago.gerber.raster_asteroids.controller.Game;
+import edu.uchicago.gerber._08final.mvc.controller.Game;
 import lombok.Data;
 
 import javax.imageio.ImageIO;
@@ -18,7 +17,7 @@ import java.util.function.Function;
 //the lombok @Data gives us automatic getters and setters on all members
 
 //A Sprite can be either vector or raster. We do not implement the draw(Graphics g) method, thereby forcing extending
-// classes to implement draw() depending on their graphics mode: vector or raster.  See Falcon, and SmallDebris
+// classes to implement draw() depending on their graphics mode: vector or raster.  See Falcon, and WhiteCloudDebris
 // classes for raster implementation of draw(). See NewShipFloater, Bullet, or Asteroid for vector implementations of
 // draw().
 @Data
@@ -51,6 +50,7 @@ public abstract class Sprite implements Movable {
     private Color color;
 
     //Either you use the cartesian points above (vector), or you can use the BufferedImages here (raster).
+    //Keys can be any object (?) you want. See Falcon and WhiteCloudDebris for example implementations.
     private Map<?, BufferedImage> rasterMap;
 
 
@@ -135,7 +135,7 @@ public abstract class Sprite implements Movable {
 
 
     //https://www.tabnine.com/code/java/methods/java.awt.geom.AffineTransform/rotate
-    protected void renderRaster(Graphics2D g2d, BufferedImage bufferedImage ) {
+    protected void renderRaster(Graphics2D g2d, BufferedImage bufferedImage) {
 
         int centerX = getCenter().x;
         int centerY = getCenter().y;
@@ -216,10 +216,10 @@ public abstract class Sprite implements Movable {
 
                 polars.size());
 
-        //for debugging center-point. Feel free to remove these two lines.
+        //for debugging center-point and collision. Feel free to remove these three lines.
         //#########################################
-        g.setColor(Color.ORANGE);
-        g.fillOval(getCenter().x - 1, getCenter().y - 1, 2, 2);
+        //g.setColor(Color.GRAY);
+        //g.fillOval(getCenter().x - 1, getCenter().y - 1, 2, 2);
         //g.drawOval(getCenter().x - getRadius(), getCenter().y - getRadius(), getRadius() *2, getRadius() *2);
         //#########################################
     }

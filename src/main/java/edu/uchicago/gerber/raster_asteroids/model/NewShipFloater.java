@@ -11,14 +11,14 @@ public class NewShipFloater extends Sprite {
 
 		setTeam(Team.FLOATER);
 
-		setExpiry(251);
+		setExpiry(250);
 		setRadius(50);
 		setColor(Color.BLUE);
 
 		//set random DeltaX
 		setDeltaX(somePosNegValue(10));
 
-		//set rnadom DeltaY
+		//set random DeltaY
 		setDeltaY(somePosNegValue(10));
 		
 		//set random spin

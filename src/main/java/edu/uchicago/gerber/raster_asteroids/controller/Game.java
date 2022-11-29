@@ -1,9 +1,7 @@
 package edu.uchicago.gerber.raster_asteroids.controller;
 
-
-
-import edu.uchicago.gerber.raster_asteroids.model.*;
-import edu.uchicago.gerber.raster_asteroids.view.GamePanel;
+import edu.uchicago.gerber._08final.mvc.model.*;
+import edu.uchicago.gerber._08final.mvc.view.GamePanel;
 
 import javax.sound.sampled.Clip;
 import java.awt.*;
@@ -26,10 +24,10 @@ public class Game implements Runnable, KeyListener {
 	//this is used throughout many classes.
 	public static final Random R = new Random();
 
-	public final static int ANI_DELAY = 40; // milliseconds between screen
+	public final static int ANIMATION_DELAY = 40; // milliseconds between screen
 											// updates (animation)
 
-	public final static int FRAMES_PER_SECOND = 1000 / ANI_DELAY;
+	public final static int FRAMES_PER_SECOND = 1000 / ANIMATION_DELAY;
 
 	private final Thread animationThread;
 
@@ -113,7 +111,7 @@ public class Game implements Runnable, KeyListener {
 				// The total amount of time is guaranteed to be at least ANI_DELAY long.  If processing (update) 
 				// between frames takes longer than ANI_DELAY, then the difference between lStartTime - 
 				// System.currentTimeMillis() will be negative, then zero will be the sleep time
-				lStartTime += ANI_DELAY;
+				lStartTime += ANIMATION_DELAY;
 
 				Thread.sleep(Math.max(0,
 						lStartTime - System.currentTimeMillis()));
@@ -253,7 +251,7 @@ public class Game implements Runnable, KeyListener {
 		    int nSize = originalAsteroid.getSize();
 		    //small asteroids
 		    if (nSize > 1) {
-				CommandCenter.getInstance().getOpsQueue().enqueue(new SmallDebris(originalAsteroid), GameOp.Action.ADD);
+				CommandCenter.getInstance().getOpsQueue().enqueue(new WhiteCloudDebris(originalAsteroid), GameOp.Action.ADD);
 			}
 			//med and large
 			else {

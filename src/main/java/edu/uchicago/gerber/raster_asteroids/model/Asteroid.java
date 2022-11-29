@@ -1,9 +1,7 @@
 package edu.uchicago.gerber.raster_asteroids.model;
 
 
-
-
-import edu.uchicago.gerber.raster_asteroids.controller.Game;
+import edu.uchicago.gerber._08final.mvc.controller.Game;
 
 import java.awt.*;
 import java.util.Comparator;
@@ -23,6 +21,11 @@ public class Asteroid extends Sprite {
 	//small asteroids get blasted into debris, but do not spawn anything
 	public Asteroid(int size){
 
+		//a size of zero is a big asteroid
+		//a size of 1 or 2 is med or small asteroid respectively. See getSize() method.
+		if (size == 0) setRadius(LARGE_RADIUS);
+		else setRadius(LARGE_RADIUS/(size * 2));
+
 		//Asteroid is FOE
 		setTeam(Team.FOE);
 		setColor(Color.WHITE);
@@ -34,15 +37,7 @@ public class Asteroid extends Sprite {
 		//random delta-y
 		setDeltaY(somePosNegValue(10));
 
-		//a size of zero is a big asteroid
-		//a size of 1 or 2 is med or small asteroid respectively. See getSize() method.
-		if (size == 0)
-			setRadius(LARGE_RADIUS);
-		else
-			setRadius(LARGE_RADIUS/(size * 2));
-
-
-		setCartesians(genRandomPoints());
+		setCartesians(genRandomVertices());
 
 	}
 
@@ -76,7 +71,7 @@ public class Asteroid extends Sprite {
 
 
 
-	  private Point[] genRandomPoints(){
+	  private Point[] genRandomVertices(){
 
 		  //6.283 is the max radians
 		  final int MAX_RADIANS_X1000 =6283;
@@ -84,7 +79,7 @@ public class Asteroid extends Sprite {
 		  final int PRECISION_MULTIPLIER = 1000;
 
 		  Supplier<PolarPoint> polarPointSupplier = () -> {
-			  double r = (800 + Game.R.nextInt(200)) / 1000.0; //number between 0.8 and 0.999
+			  double r = (750 + Game.R.nextInt(200)) / 1000.0; //number between 0.75 and 0.999
 			  double theta = Game.R.nextInt(MAX_RADIANS_X1000) / 1000.0; // number between 0 and 6.282
 		  	  return new PolarPoint(r,theta);
 		  };
@@ -97,8 +92,8 @@ public class Asteroid extends Sprite {
 						  * Math.cos(Math.toRadians(spr.getOrientation())
 						  + pp.getTheta())));
 
-		 //random number of vertices between 17 and 23
-		 final int VERTICES = Game.R.nextInt( 7 ) + 17;
+		 //random number of vertices
+		 final int VERTICES = Game.R.nextInt( 7 ) + 25;
 
 		 return Stream.generate(polarPointSupplier)
 				 .limit(VERTICES)
