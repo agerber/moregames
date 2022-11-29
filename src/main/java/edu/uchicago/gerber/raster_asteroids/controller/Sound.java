@@ -1,7 +1,6 @@
 package edu.uchicago.gerber.raster_asteroids.controller;
 
 
-
 import edu.uchicago.gerber.raster_asteroids.model.CommandCenter;
 
 import javax.sound.sampled.*;
@@ -15,7 +14,6 @@ public class Sound {
 	//for individual wav sounds (not looped)
 	//http://stackoverflow.com/questions/26305/how-can-i-play-sound-in-java
 	public static void playSound(final String strPath) {
-
 
 		CommandCenter.getInstance().getSoundExecutor().execute(new Runnable() {
 			public void run() {

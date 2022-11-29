@@ -16,10 +16,12 @@ public class Falcon extends Sprite {
 	
 	private static final double THRUST = .65;
 	private final static int DEGREE_STEP = 9;
-	public static final int INITIAL_SPAWN_TIME = 68;
+	public static final int INITIAL_SPAWN_TIME = 50;
 
 	//a counter which counts down from INITIAL_SPAWN_TIME to zero (see move()). Used for determining protection
 	private int spawn;
+
+	public static final int MAX_SHIELD = 200;
 
 	private boolean thrusting = false;
 	public enum TurnState {
@@ -44,7 +46,7 @@ public class Falcon extends Sprite {
 		setTeam(Team.FRIEND);
 
 		//this is the radius of the falcon
-		setRadius(32);
+		setRadius(37);
 
 
 
@@ -54,10 +56,10 @@ public class Falcon extends Sprite {
 		//if we had hard-coded strings here and below, there's a chance we could misspell it below or elsewhere.
 
     	Map<ImageState, BufferedImage> rasterMap = new HashMap<>();
-		rasterMap.put(ImageState.FALCON, loadGraphic("/asteroids/imgs/fal/falcon50.png") );
-		rasterMap.put(ImageState.FALCON_THR, loadGraphic("/asteroids/imgs/fal/falcon50thrust.png") );
-		rasterMap.put(ImageState.FALCON_PRO, loadGraphic("/asteroids/imgs/fal/falcon50protect.png") );
-		rasterMap.put(ImageState.FALCON_PRO_THR, loadGraphic("/asteroids/imgs/fal/falcon50protect_thrust.png") );
+		rasterMap.put(ImageState.FALCON, loadGraphic("/asteroids/imgs/fal/falcon125.png") );
+		rasterMap.put(ImageState.FALCON_THR, loadGraphic("/asteroids/imgs/fal/falcon125_thr.png") );
+		rasterMap.put(ImageState.FALCON_PRO, loadGraphic("/asteroids/imgs/fal/falcon125_PRO.png") );
+		rasterMap.put(ImageState.FALCON_PRO_THR, loadGraphic("/asteroids/imgs/fal/falcon125_PRO_thr.png") );
 		setRasterMap(rasterMap);
 
 
@@ -126,12 +128,13 @@ public class Falcon extends Sprite {
 		//and render the image according to the image-state
 		renderRaster((Graphics2D) g, getRasterMap().get(imageState));
 
+		//you can also add vector elements to raster graphics
 		//draw cyan shield, and warn player of impending non-protection
-		if (isProtected() && !(spawn <= 21 && spawn % 7 == 0)) {
-			//you can add vector elements to raster graphics
-			g.setColor(Color.CYAN);
-			g.drawOval(getCenter().x - getRadius(), getCenter().y - getRadius(), getRadius() *2, getRadius() *2);
-		}
+//		if (isProtected() && !(spawn <= 21 && spawn % 7 == 0)) {
+//
+//			g.setColor(Color.CYAN);
+//			g.drawOval(getCenter().x - getRadius(), getCenter().y - getRadius(), getRadius() *2, getRadius() *2);
+//		}
 
 
 

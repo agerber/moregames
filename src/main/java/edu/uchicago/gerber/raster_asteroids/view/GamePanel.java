@@ -109,6 +109,17 @@ public class GamePanel extends Panel {
 
     }
 
+    private void drawShieldMeter(Graphics g){
+
+        int spawnForMeter =   CommandCenter.getInstance().getFalcon().getSpawn() / 2;
+
+        g.setColor(Color.CYAN);
+        g.fillRect(Game.DIM.width - 220, Game.DIM.height -45, spawnForMeter, 10);
+
+        g.setColor(Color.DARK_GRAY);
+        g.drawRect(Game.DIM.width - 220, Game.DIM.height -45, 100, 10);
+    }
+
 
     public void update(Graphics g) {
         //create an image off-screen
@@ -152,6 +163,7 @@ public class GamePanel extends Panel {
 
 
             drawNumberShipsRemaining(grpOff);
+            drawShieldMeter(grpOff);
 
 
         }

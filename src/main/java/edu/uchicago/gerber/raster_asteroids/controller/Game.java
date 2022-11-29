@@ -1,6 +1,5 @@
 package edu.uchicago.gerber.raster_asteroids.controller;
 
-
 import edu.uchicago.gerber.raster_asteroids.model.*;
 import edu.uchicago.gerber.raster_asteroids.view.GamePanel;
 
@@ -51,7 +50,10 @@ public class Game implements Runnable, KeyListener {
     private final Clip soundBackground;
 
     //spawn every 30 seconds
-    private static final int SPAWN_NEW_SHIP_FLOATER = FRAMES_PER_SECOND * 12;
+    private static final int SPAWN_NEW_WALL_FLOATER = FRAMES_PER_SECOND * 40;
+    private static final int SPAWN_SHIELD_FLOATER = FRAMES_PER_SECOND * 25;
+
+
 
 
     // ===============================================
@@ -99,7 +101,7 @@ public class Game implements Runnable, KeyListener {
             panel.update(panel.getGraphics()); // see GamePanel class
             checkCollisions();
             checkNewLevel();
-            spawnNewWallFloater();
+            checkFloaters();
             CommandCenter.getInstance().incrementFrame();
 
             // surround the sleep() in a try/catch block
@@ -118,6 +120,11 @@ public class Game implements Runnable, KeyListener {
             }
         } // end while
     } // end run
+
+    private void checkFloaters() {
+        spawnNewWallFloater();
+        spawnShieldFloater();
+    }
 
 
     private void checkCollisions() {
@@ -168,8 +175,19 @@ public class Game implements Runnable, KeyListener {
             //detect collision
             if (pntFalCenter.distance(pntFloaterCenter) < (radFalcon + radFloater)) {
 
+                Class<? extends Movable> clazz = movFloater.getClass();
+                switch (clazz.getSimpleName()){
+                    case "ShieldFloater":
+                        Sound.playSound("shieldup.wav");
+                        CommandCenter.getInstance().getFalcon().setSpawn(Falcon.MAX_SHIELD);
+                     break;
+                    case "NewWallFloater":
+                        Sound.playSound("wall.wav");
+                        buildWall();
+                        break;
+                }
                 CommandCenter.getInstance().getOpsQueue().enqueue(movFloater, GameOp.Action.REMOVE);
-                attemptWall();
+
 
             }//end if
         }//end for
@@ -179,39 +197,6 @@ public class Game implements Runnable, KeyListener {
     }//end meth
 
 
-    private boolean hasNoBricks() {
-        //if there are no more Bricks on the screen
-        boolean bricksFree = true;
-        for (Movable movFriend : CommandCenter.getInstance().getMovFoes()) {
-            if (movFriend instanceof Brick) {
-                bricksFree = false;
-                break;
-            }
-        }
-        return bricksFree;
-    }
-
-    //doesn't add much functionality to the game, but shows how to add walls or rectangular elements one
-    //brick at a time
-    private void attemptWall() {
-        final int BRICK_SIZE = Game.DIM.width / 30, ROWS = 20, COLS = 2, X_OFFSET = BRICK_SIZE * 5, Y_OFFSET = 50;
-        //only build a wall if the falcon is away from the top
-        if (CommandCenter.getInstance().getFalcon().getCenter().y > 200) {
-            Sound.playSound("pacman_eatghost.wav");
-            for (int nRow = 0; nRow < ROWS; nRow++) {
-                for (int nCol = 0; nCol < COLS; nCol++) {
-                    CommandCenter.getInstance().getOpsQueue().enqueue(
-                            new Brick(
-                                    new Point(nRow * BRICK_SIZE + X_OFFSET, nCol * BRICK_SIZE + Y_OFFSET),
-                                    BRICK_SIZE),
-                            GameOp.Action.ADD);
-
-                } //end inner for
-            }//end outer for
-        }  else {
-            Sound.playSound("insect-buzzing.wav");
-        }
-    }
 
 
     private void processGameOpsQueue() {
@@ -267,12 +252,47 @@ public class Game implements Runnable, KeyListener {
 
         }
     }
+    private boolean hasNoBricks() {
+        //if there are no more Bricks on the screen
+        boolean bricksFree = true;
+        for (Movable movFriend : CommandCenter.getInstance().getMovFoes()) {
+            if (movFriend instanceof Brick) {
+                bricksFree = false;
+                break;
+            }
+        }
+        return bricksFree;
+    }
+
+    //shows how to add walls or rectangular elements one
+    //brick at a time
+    private void buildWall() {
+        final int BRICK_SIZE = Game.DIM.width / 30, ROWS = 20, COLS = 2, X_OFFSET = BRICK_SIZE * 5, Y_OFFSET = 50;
+
+        for (int nRow = 0; nRow < ROWS; nRow++) {
+            for (int nCol = 0; nCol < COLS; nCol++) {
+                CommandCenter.getInstance().getOpsQueue().enqueue(
+                        new Brick(
+                                new Point(nRow * BRICK_SIZE + X_OFFSET, nCol * BRICK_SIZE + Y_OFFSET),
+                                BRICK_SIZE),
+                        GameOp.Action.ADD);
+
+            }
+        }
+    }
 
 
     private void spawnNewWallFloater() {
 
-        if (CommandCenter.getInstance().getFrame() % SPAWN_NEW_SHIP_FLOATER == 0 && hasNoBricks()) {
+        if (CommandCenter.getInstance().getFrame() % SPAWN_NEW_WALL_FLOATER == 0 && hasNoBricks()) {
             CommandCenter.getInstance().getOpsQueue().enqueue(new NewWallFloater(), GameOp.Action.ADD);
+        }
+    }
+
+    private void spawnShieldFloater() {
+
+        if (CommandCenter.getInstance().getFrame() % SPAWN_SHIELD_FLOATER == 0 ) {
+            CommandCenter.getInstance().getOpsQueue().enqueue(new ShieldFloater(), GameOp.Action.ADD);
         }
     }
 
