@@ -20,7 +20,7 @@ public class Brick extends Sprite {
 		setCenter(new Point(upperLeftCorner.x + size/2, upperLeftCorner.y + size/2));
 
 		setRadius(size/2);
-		setOrientation(90); //rotate it 90 degrees
+
 
     	Map<Integer, BufferedImage> rasterMap = new HashMap<>();
 		//brick from Mario Bros
