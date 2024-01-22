@@ -26,7 +26,7 @@ public class Sound {
 				try {
 					Clip clp = AudioSystem.getClip();
 
-					InputStream audioSrc = Sound.class.getResourceAsStream("/sounds/" + strPath);
+					InputStream audioSrc = Sound.class.getResourceAsStream("/g1941/sounds/" + strPath);
 					InputStream bufferedIn = new BufferedInputStream(audioSrc);
 					AudioInputStream aisStream = AudioSystem.getAudioInputStream(bufferedIn);
 
